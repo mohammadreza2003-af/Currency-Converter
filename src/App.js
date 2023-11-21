@@ -9,12 +9,10 @@ function App() {
   const [curValue, setCurValue] = useState("");
   const [load, setLoading] = useState(false);
 
-  console.log(load);
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
-        console.log(load);
         const res = await fetch(
           `https://api.frankfurter.app/latest?amount=${value}&from=${cur}&to=${toCur}`
         );
@@ -22,14 +20,13 @@ function App() {
         if (!data.amount) return;
         setCurValue(data.rates[toCur]);
         setLoading(false);
-        console.log(load);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
     fetchData();
-  }, [value, cur, toCur]);
+  }, [value, cur, toCur, load]);
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
